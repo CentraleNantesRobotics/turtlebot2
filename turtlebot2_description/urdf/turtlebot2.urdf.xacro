@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="prefix"  default=""/>
+  <xacro:arg name="gazebo"  default="false"/>
+  <xacro:arg name="hokuyo"  default="true"/>
+  <xacro:arg name="rgbd"    default="kinect"/> <!-- kinect / -->
+
+ <xacro:macro name="mesh" params="pkg mesh">
+
+      <xacro:if value="${pkg == 'kobuki_description'}">
+        <xacro:property name="scale" value="1." />
+      </xacro:if>
+      <xacro:if value="${pkg == 'turtlebot2_description'}">
+        <xacro:property name="scale" value="0.001" />
+      </xacro:if>
+
+   <xacro:if value="$(arg gazebo)">
+     <mesh filename="file://$(find ${pkg})/meshes/${mesh}" scale="${scale} ${scale} ${scale}"/>
+   </xacro:if>
+   <xacro:unless value="$(arg gazebo)">
+     <mesh filename="package://turtlebot2_description/meshes/${mesh}" scale="${scale} ${scale} ${scale}"/>
+   </xacro:unless>
+ </xacro:macro>
+
+
+  <xacro:include filename="$(find turtlebot2_description)/urdf/common/common_properties.urdf.xacro" />
+  <xacro:include filename="$(find turtlebot2_description)/urdf/common/turtlebot_properties.urdf.xacro" />
+  <xacro:include filename="$(find turtlebot2_description)/urdf/hexagons.urdf.xacro"/>
+  <xacro:include filename="$(find turtlebot2_description)/urdf/kobuki.urdf.xacro"/>
+
+  <xacro:if value="$(arg hokuyo)">
+    <xacro:include filename="$(find turtlebot2_description)/urdf/sensors/hokuyo.urdf.xacro" />
+  </xacro:if>
+
+  <xacro:if value="$(arg gazebo)">
+   <xacro:include filename="$(find turtlebot2_description)/urdf/gazebo.xacro"/>
+  </xacro:if>
+
+  <xacro:include filename="$(find turtlebot_description)/urdf/sensors/kinect.urdf.xacro"/>
+</robot>
