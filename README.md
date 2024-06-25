@@ -6,7 +6,7 @@ Use the `prefix` argument to rename all links e.g. `prefix:=turtle1/` leads to `
 
 It is used to rename all links within the model, together with a namespaced execution, allowing an easy multi-robot setup.
 
-It is compatible with spawning the models in Gazebo by using the `namespace` to remap the topics.
+It is compatible with spawning the models in Gazebo.
 
 ## Bringup
 
@@ -16,8 +16,7 @@ Running `bringup.sh` will launch this file in a detached screen.
 
 Bringup can be run at boot with the package `robot-upstart`.
 
-Meshes are set to package-relative paths (e.g. `$(find turtlebot2_description)/meshes/*`) so that a remote computer can find them  even if on a different absolute path, that may happen if using another ROS 2 distro.
 
-## Upload in Ignition/Gazebo
+## Upload in Gazebo (Ignition)
 
-The `upload_launch.py` will spawn a Turtlebot inside Ignition. Currently only `cmd_vel` and `odom` topics are bridged.
+The `upload_launch.py` will spawn a Turtlebot inside Gazebo.
