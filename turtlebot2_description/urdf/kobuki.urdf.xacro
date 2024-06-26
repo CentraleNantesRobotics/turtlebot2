@@ -210,6 +210,126 @@
       </inertial>
     </link>
 
+<xacro:if value="$(arg gazebo)">
+<gazebo reference="$(arg prefix)wheel_left_link">
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <kp>500000.0</kp>
+  <kd>10.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>0.1</maxVel>
+  <fdir1>1 0 0</fdir1>
+  <material>Gazebo/FlatBlack</material>
+</gazebo>
+
+<gazebo reference="$(arg prefix)wheel_right_link">
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <kp>500000.0</kp>
+  <kd>10.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>0.1</maxVel>
+  <fdir1>1 0 0</fdir1>
+  <material>Gazebo/FlatBlack</material>
+</gazebo>
+
+<gazebo reference="$(arg prefix)caster_back_right_link">
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <kp>1000000.0</kp>
+  <kd>100.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>1.0</maxVel>
+  <material>Gazebo/FlatBlack</material>
+</gazebo>
+
+<gazebo reference="$(arg prefix)caster_back_left_link">
+  <mu1>0.1</mu1>
+  <mu2>0.1</mu2>
+  <kp>1000000.0</kp>
+  <kd>100.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>1.0</maxVel>
+  <material>Gazebo/FlatBlack</material>
+</gazebo>
+
+  <gazebo reference="$(arg prefix)gyro_link">
+    <sensor name="tb2_imu" type="imu">
+        <always_on>true</always_on>
+        <update_rate>50</update_rate>
+        <topic>$(arg prefix)imu</topic>
+        <gz_frame_id>$(arg prefix)gyro_link</gz_frame_id>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+    </sensor>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+ <gazebo>
+    <plugin
+      filename="libignition-gazebo-diff-drive-system.so"
+      name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.230</wheel_separation>
+      <wheel_radius>0.035</wheel_radius>
+      <child_frame_id>$(arg prefix)base_footprint</child_frame_id>
+      <max_wheel_torque>1.0</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+    </plugin>
+
+    <plugin filename="libignition-gazebo-joint-state-publisher-system.so" name="ignition::gazebo::systems::JointStatePublisher"/>
+      <plugin
+            filename="ignition-gazebo-pose-publisher-system"
+            name="ignition::gazebo::systems::PosePublisher">
+            <publish_link_pose>false</publish_link_pose>
+            <publish_collision_pose>false</publish_collision_pose>
+            <publish_visual_pose>false</publish_visual_pose>
+            <publish_nested_model_pose>true</publish_nested_model_pose>
+        </plugin>
+
+</gazebo>
+</xacro:if>
 
 
 

@@ -20,4 +20,5 @@
     <xacro:include filename="$(find turtlebot2_description)/urdf/sensors/kinect.urdf.xacro"/>
   </xacro:if>
 
+
 </robot>
