@@ -311,8 +311,8 @@
 
  <gazebo>
     <plugin
-      filename="libignition-gazebo-diff-drive-system.so"
-      name="ignition::gazebo::systems::DiffDrive">
+      filename="gz-sim-diff-drive-system"
+      name="gz::sim::systems::DiffDrive">
       <left_joint>wheel_left_joint</left_joint>
       <right_joint>wheel_right_joint</right_joint>
       <wheel_separation>0.230</wheel_separation>
@@ -322,10 +322,11 @@
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
     </plugin>
 
-    <plugin filename="libignition-gazebo-joint-state-publisher-system.so" name="ignition::gazebo::systems::JointStatePublisher"/>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher"/>
+
       <plugin
-            filename="ignition-gazebo-pose-publisher-system"
-            name="ignition::gazebo::systems::PosePublisher">
+            filename="gz-sim-pose-publisher-system"
+            name="gz::sim::systems::PosePublisher">
             <publish_link_pose>false</publish_link_pose>
             <publish_collision_pose>false</publish_collision_pose>
             <publish_visual_pose>false</publish_visual_pose>
